@@ -6,11 +6,13 @@ LFLAGS=-Llibft -Lft_printf
 
 BUILD_DIR=build
 SOURCE_DIR=source
-CLIENT_MODULES=client
+CLIENT_MODULES=client ft_atoi_safe
 SERVER_MODULES=server
+CLIENT_SRC_DIR=$(SOURCE_DIR)/client
+SERVER_SRC_DIR=$(SOURCE_DIR)/server
 CLIENT_OBJ_DIR=$(BUILD_DIR)/client
 SERVER_OBJ_DIR=$(BUILD_DIR)/server
-CLIENT_BONUS_MODULES=client_bonus
+CLIENT_BONUS_MODULES=client_bonus ft_atoi_safe
 SERVER_BONUS_MODULES=server_bonus
 CLIENT_OBJ=$(addprefix $(CLIENT_OBJ_DIR)/, $(addsuffix .o, $(CLIENT_MODULES)))
 SERVER_OBJ=$(addprefix $(SERVER_OBJ_DIR)/, $(addsuffix .o, $(SERVER_MODULES)))
@@ -27,14 +29,8 @@ bonus: CLIENT_OBJ=$(addprefix $(CLIENT_OBJ_DIR)/, $(addsuffix .o, $(CLIENT_BONUS
 bonus: SERVER_OBJ=$(addprefix $(SERVER_OBJ_DIR)/, $(addsuffix .o, $(SERVER_BONUS_MODULES)))
 bonus: client server
 
-$(BUILD_DIR)/client%_bonus.o: $(SOURCE_DIR)/client%_bonus.c header/client_bonus.h Makefile
+$(CLIENT_OBJ_DIR)/%.o: $(CLIENT_SRC_DIR)/%.c header/client.h Makefile
 	cc $(CFLAGS) $(IFLAGS) -o $@ -c $<
 
-$(BUILD_DIR)/server%_bonus.o: $(SOURCE_DIR)/server%_bonus.c header/server_bonus.h Makefile
-	cc $(CFLAGS) $(IFLAGS) -o $@ -c $<
-
-$(BUILD_DIR)/client%.o: $(SOURCE_DIR)/client%.c header/client.h Makefile
-	cc $(CFLAGS) $(IFLAGS) -o $@ -c $<
-
-$(BUILD_DIR)/server%.o: $(SOURCE_DIR)/server%.c header/server.h Makefile
+$(SERVER_OBJ_DIR)/%.o: $(SERVER_SRC_DIR)/%.c header/server.h Makefile
 	cc $(CFLAGS) $(IFLAGS) -o $@ -c $<
