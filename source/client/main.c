@@ -6,7 +6,7 @@
 /*   By: zanikin <zanikin@student.42yerevan.am>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 21:12:22 by zanikin           #+#    #+#             */
-/*   Updated: 2024/04/26 15:20:16 by zanikin          ###   ########.fr       */
+/*   Updated: 2024/04/27 16:25:01 by zanikin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	main(int argc, char **argv)
 	error = 1;
 	if (argc == 3)
 	{
-		error = (ft_atoi_safe(argv[1], &pid) || pid >= 0) * 2;
+		error = (ft_atoi_safe(argv[1], &pid) || pid < 0) * 2;
 		if (!error)
 		{
 			i = 0;
@@ -68,6 +68,7 @@ static int	send_char(char c, pid_t pid)
 		else
 			error = kill(pid, SIGUSR1);
 		c >>= 1;
+		usleep(100);
 	}
 	return (error);
 }

@@ -1,4 +1,4 @@
-CFLAGS=-Wall -Wextra -Werror
+CFLAGS=-Wall -Wextra -Werror -g
 IFLAGS=-Iheader -Ilibft -Ift_printf
 LFLAGS=-Llibft -Lft_printf
 
