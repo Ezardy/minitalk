@@ -6,7 +6,7 @@
 /*   By: zanikin <zanikin@student.42yerevan.am>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 21:12:22 by zanikin           #+#    #+#             */
-/*   Updated: 2024/04/27 16:25:01 by zanikin          ###   ########.fr       */
+/*   Updated: 2024/04/27 18:06:50 by zanikin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void	print_error(int error)
 	else if (error == 3)
 		ft_putstr_fd("Sending string is empty\n", STDERR_FILENO);
 	else if (error == 4)
-		ft_putstr_fd("Failed to send byte on given pid", STDERR_FILENO);
+		ft_putstr_fd("Failed to send byte on given pid\n", STDERR_FILENO);
 }
 
 static int	send_char(char c, pid_t pid)
@@ -70,5 +70,5 @@ static int	send_char(char c, pid_t pid)
 		c >>= 1;
 		usleep(100);
 	}
-	return (error);
+	return (error * -1);
 }
