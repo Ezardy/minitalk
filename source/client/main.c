@@ -6,14 +6,14 @@
 /*   By: zanikin <zanikin@student.42yerevan.am>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 21:12:22 by zanikin           #+#    #+#             */
-/*   Updated: 2024/04/27 18:06:50 by zanikin          ###   ########.fr       */
+/*   Updated: 2024/04/27 19:39:35 by zanikin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "client.h"
 
 static int	send_char(char c, pid_t pid);
-static void	print_error(int error);
+static void	report(int error);
 
 int	main(int argc, char **argv)
 {
@@ -38,11 +38,11 @@ int	main(int argc, char **argv)
 			}
 		}
 	}
-	print_error(error);
+	report(error);
 	return (error);
 }
 
-static void	print_error(int error)
+static void	report(int error)
 {
 	if (error == 1)
 		ft_putstr_fd("Wrong parameters count\n", STDERR_FILENO);

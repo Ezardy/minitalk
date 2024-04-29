@@ -1,4 +1,4 @@
-CFLAGS=-Wall -Wextra -Werror -g
+CFLAGS=-Wall -Wextra -Werror
 IFLAGS=-Iheader -Ilibft -Ift_printf
 LFLAGS=-Llibft -Lft_printf
 
@@ -19,15 +19,15 @@ SERVER_OBJ=$(addprefix $(SERVER_OBJ_DIR)/, $(addsuffix .o, $(SERVER_MODULES)))
 
 all: client server
 
-client: $(CLIENT_OBJ_DIR) libft/libft.a ft_printf/libftprintf.a $(CLIENT_OBJ)
-	cc $(CFLAGS) $(LFLAGS) -o $@ $(CLIENT_OBJ) -lft -lftprintf
-
-server: $(SERVER_OBJ_DIR) libft/libft.a ft_printf/libftprintf.a $(SERVER_OBJ)
-	cc $(CFLAGS) $(LFLAGS) -o $@ $(SERVER_OBJ) -lft -lftprintf
-
 bonus: CLIENT_OBJ=$(addprefix $(CLIENT_OBJ_DIR)/, $(addsuffix .o, $(CLIENT_BONUS_MODULES)))
 bonus: SERVER_OBJ=$(addprefix $(SERVER_OBJ_DIR)/, $(addsuffix .o, $(SERVER_BONUS_MODULES)))
 bonus: client server
+
+client: $(CLIENT_OBJ_DIR) libft/libft.a ft_printf/libftprintf.a $(CLIENT_OBJ)
+	cc $(CFLAGS) $(LFLAGS) -o $@ $(CLIENT_OBJ) -lft
+
+server: $(SERVER_OBJ_DIR) libft/libft.a ft_printf/libftprintf.a $(SERVER_OBJ)
+	cc $(CFLAGS) $(LFLAGS) -o $@ $(SERVER_OBJ) -lft -lftprintf
 
 $(CLIENT_OBJ_DIR)/%.o: $(CLIENT_SRC_DIR)/%.c header/client.h Makefile
 	cc $(CFLAGS) $(IFLAGS) -o $@ -c $<
@@ -49,3 +49,13 @@ $(CLIENT_OBJ_DIR): | $(BUILD_DIR)
 
 $(BUILD_DIR):
 	mkdir $@
+
+clean:
+	rm -rf $(BUILD_DIR)
+	make -C libft fclean
+	make -C ft_printf fclean
+
+fclean: clean
+	rm -f client server
+
+re: fclean all
